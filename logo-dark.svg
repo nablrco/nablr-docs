@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 100" width="420" height="100">
+  <g transform="translate(0, -105) scale(0.323)">
+    <path fill="#1a5fa8" d="M120 0 L240 40 L240 160 Q240 260 120 310 Q0 260 0 160 L0 40 Z"/>
+    <path fill="none" stroke="#3b9eff" stroke-width="3" d="M120 8 L232 46 L232 160 Q232 254 120 302 Q8 254 8 160 L8 46 Z"/>
+    <path fill="#6db8ff" d="M138 70 L98 165 L118 165 L100 250 L158 145 L136 145 L168 70 Z"/>
+    <path fill="#ffffff" d="M130 66 L90 161 L112 161 L94 246 L152 141 L128 141 L162 66 Z"/>
+  </g>
+  <text x="92" y="68" font-family="system-ui, -apple-system, sans-serif" font-size="52" font-weight="600" fill="#ffffff" letter-spacing="-1">nablr</text>
+</svg>

@@ -3,7 +3,7 @@
   "name": "nablr",
   "logo": {
     "light": "/logo.svg",
-    "dark": "/logo.svg"
+    "dark": "/logo-dark.svg"
   },
   "favicon": "/favicon.svg",
   "colors": {
