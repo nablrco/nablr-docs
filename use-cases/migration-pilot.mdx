@@ -1,11 +1,12 @@
 ---
 title: MigrationPilot
 description: Migrate platforms with a plan, not a prayer
+icon: git-merge
 ---
 
 ## The Problem
 
-Technology migrations — framework upgrades, monolith decomposition, language rewrites — are the highest-risk, lowest-visibility projects in engineering. Teams start without a complete map and discover unknowns mid-flight.
+Technology migrations - framework upgrades, monolith decomposition, language rewrites - are the highest-risk, lowest-visibility projects in engineering. Teams start without a complete map and discover unknowns mid-flight.
 
 ## What It Does
 
@@ -23,7 +24,7 @@ activate nablr
 Set agent to migration_planner. Create a migration plan for [what you're migrating]
 ```
 
-Example — framework upgrade:
+Example - framework upgrade:
 
 ```
 Set agent to migration_planner. Plan migration from Flask to FastAPI. Entry point is src/app.py
@@ -43,8 +44,8 @@ Set agent to cutover_engineer. Execute feature-flag cutover with rollback plan
 
 ## Expected Output
 
-- Migration map — full inventory of impacted components
-- Parity test suite — behavioral equivalence proofs
+- Migration map - full inventory of impacted components
+- Parity test suite - behavioral equivalence proofs
 - Cutover plan with feature flags and traffic-switch sequence
 - Rollback specification
 

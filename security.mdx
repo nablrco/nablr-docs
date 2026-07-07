@@ -1,6 +1,7 @@
 ---
 title: Security
 description: Network boundaries, data handling, and airgap support
+icon: shield-check
 ---
 
 ## Network boundary
@@ -55,13 +56,13 @@ Cache layout:
     config/             ← language + framework configs
 ```
 
-All cache files are `chmod 600` — readable only by the current user.
+All cache files are `chmod 600` - readable only by the current user.
 
 ## Key security
 
-- Keys are sent only in the `Authorization: Bearer` header — never in request bodies or URLs
+- Keys are sent only in the `Authorization: Bearer` header - never in request bodies or URLs
 - Keys are stored at `~/.nablr_cache/license_key.json` with `chmod 600`
-- The last 4 characters are logged when `NABLR_AUDIT_LOG=1` is set — full key is never logged
+- The last 4 characters are logged when `NABLR_AUDIT_LOG=1` is set - full key is never logged
 
 ## Audit logging
 

@@ -22,14 +22,19 @@
       "family": "JetBrains Mono"
     }
   },
+  "icons": {
+    "library": "lucide"
+  },
   "navigation": {
     "groups": [
       {
         "group": "Get started",
+        "icon": "rocket",
         "pages": ["introduction", "quickstart"]
       },
       {
         "group": "Use Cases",
+        "icon": "layout-grid",
         "pages": [
           "use-cases/debt-radar",
           "use-cases/ship-safe",
@@ -44,18 +49,22 @@
       },
       {
         "group": "Agents",
+        "icon": "users",
         "pages": ["agents/overview"]
       },
       {
         "group": "Tools",
+        "icon": "wrench",
         "pages": ["tools/overview"]
       },
       {
         "group": "License & Plans",
+        "icon": "layers",
         "pages": ["license"]
       },
       {
         "group": "Security",
+        "icon": "shield-check",
         "pages": ["security"]
       }
     ]
@@ -64,7 +73,7 @@
     "primary": {
       "type": "button",
       "label": "Start free trial",
-      "href": "https://nablr.dev"
+      "href": "https://dev.nablrco.com"
     }
   },
   "appearance": {

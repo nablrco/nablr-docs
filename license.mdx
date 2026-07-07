@@ -1,6 +1,7 @@
 ---
 title: License & Plans
 description: Free tier, Pro trial, and paid plans
+icon: layers
 ---
 
 ## Plans
@@ -10,10 +11,11 @@ description: Free tier, Pro trial, and paid plans
 | Code scanners (40+) | ✅ | ✅ |
 | Workflow tools | ✅ | ✅ |
 | Codebase mapping | ✅ | ✅ |
-| 19 persona prompts | — | ✅ |
-| 34 rule files | — | ✅ |
-| Language + framework configs | — | ✅ |
-| Asset pre-cache (offline use) | — | ✅ |
+| 19 persona prompts | - | ✅ |
+| 34 rule files | - | ✅ |
+| Language + framework configs | - | ✅ |
+| Asset pre-cache (offline use) | - | ✅ |
+| Trial (14 days, full Pro) | ✅ | - |
 
 ## Pro pricing
 
@@ -21,19 +23,23 @@ description: Free tier, Pro trial, and paid plans
 
 | Plan | Price |
 |------|-------|
-| Monthly | ₹499/mo |
-| Quarterly | ₹1,299/qtr |
-| 6-month | ₹2,399/6mo |
-| Annual | ₹3,999/yr |
-| Team (5 seats) | ₹9,999/6mo |
+| Individual - Monthly | ₹499/mo |
+| Individual - Quarterly | ₹1,299/qtr |
+| Individual - 6-month | ₹2,399/6mo |
+| Individual - Annual | ₹3,999/yr |
+| Team (5 seats) - 6-month | ₹9,999/6mo |
+| Team (5 seats) - Annual | ₹15,999/yr |
 
 ### Global (Polar)
 
 | Plan | Price |
 |------|-------|
-| Monthly | $9/mo |
-| Annual | $69/yr |
-| Team (5 seats) | $99/6mo |
+| Individual - Monthly | $9/mo |
+| Individual - Quarterly | $23/qtr |
+| Individual - 6-month | $43/6mo |
+| Individual - Annual | $69/yr |
+| Team (5 seats) - 6-month | $99/6mo |
+| Team (5 seats) - Annual | $159/yr |
 
 ## Free trial
 
@@ -53,11 +59,11 @@ After subscribing, you receive a key via email (`sk_nablr_...`).
 Activate my key sk_nablr_<your-key-here>
 ```
 
-The key is validated against the license server and cached locally. Subsequent calls use the 4-hour in-memory cache — no network round-trip on every prompt.
+The key is validated against the license server and cached locally. Subsequent calls use the 4-hour in-memory cache - no network round-trip on every prompt.
 
 ## Recover a lost key
 
-Email `support@nablr.dev` or use the recovery endpoint — your key is re-sent to the email address used at signup.
+Email `support@nablr.dev` or use the recovery endpoint - your key is re-sent to the email address used at signup.
 
 ## Team plan
 
@@ -65,7 +71,7 @@ Team plans share a single key across up to 5 devices. The 6th device is rejected
 
 ## Development / CI use
 
-Set `NABLR_DEV_MODE=1` to bypass all license checks. Returns paid status immediately with zero network calls. For CI pipelines and local dev only — not for end users.
+Set `NABLR_DEV_MODE=1` to bypass all license checks. Returns paid status immediately with zero network calls. For CI pipelines and local dev only - not for end users.
 
 ```bash
 export NABLR_DEV_MODE=1
@@ -73,6 +79,6 @@ export NABLR_DEV_MODE=1
 
 ## Airgap environments
 
-After activating a key, all paid assets are pre-cached to `~/.nablr_cache/assets/`. Subsequent prompt generation makes zero network calls — fully functional in restricted network environments.
+After activating a key, all paid assets are pre-cached to `~/.nablr_cache/assets/`. Subsequent prompt generation makes zero network calls - fully functional in restricted network environments.
 
 See the [Security](/security) page for firewall allowlist details.

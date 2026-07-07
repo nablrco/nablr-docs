@@ -1,6 +1,7 @@
 ---
 title: Agents
 description: 19 expert personas covering every SDLC phase
+icon: users
 ---
 
 All persona prompts require a Pro plan or active trial. Free tier returns an upgrade prompt.
@@ -11,7 +12,7 @@ These agents follow a structured handoff sequence. Each validates the previous p
 
 | Agent | Persona | Role |
 |-------|---------|------|
-| `discovery` | Code Archaeologist | Brownfield scanning, CODE_MAP generation — **free** |
+| `discovery` | Code Archaeologist | Brownfield scanning, CODE_MAP generation - **free** |
 | `product_manager` | Technical Product Visionary | Requirements, user stories, acceptance criteria |
 | `qa_lead` | Requirements Integrity Strategist | Validates AC *before* development begins |
 | `specifier` | Spec Author | Detailed technical specifications from AC |
@@ -29,7 +30,7 @@ These agents follow a structured handoff sequence. Each validates the previous p
 |-------|---------|------|
 | `forensic_engineer` | Root Cause Investigator | Incident investigation, 5 Whys, post-mortems |
 | `strategist` | Solution Strategist | Brainstorming, trade-off analysis |
-| `platform_engineer` | DevEx Engineer | Health scanning, code quality — **free** |
+| `platform_engineer` | DevEx Engineer | Health scanning, code quality - **free** |
 | `impact_architect` | Impact Analyst | Cross-system change impact assessment |
 | `migration_planner` | Migration Strategist | Database and service migration planning |
 | `parity_tester` | Parity Validator | Legacy vs new system equivalence testing |
@@ -51,8 +52,8 @@ Set my agent to architect and help me design the auth service
 
 ## How rules are loaded
 
-When you invoke a paid agent, nablr fetches the relevant rule files from the license server and injects them into the prompt. Rules are cached locally in `~/.nablr_cache/assets/` after the first activation — subsequent calls are instant with zero network dependency.
+When you invoke a paid agent, nablr fetches the relevant rule files from the license server and injects them into the prompt. Rules are cached locally in `~/.nablr_cache/assets/` after the first activation - subsequent calls are instant with zero network dependency.
 
 <Info>
-`discovery` and `platform_engineer` are permanently free — no key required.
+`discovery` and `platform_engineer` are permanently free - no key required.
 </Info>

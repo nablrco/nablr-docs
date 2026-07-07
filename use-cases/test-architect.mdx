@@ -1,19 +1,20 @@
 ---
 title: TestArchitect
 description: Green CI is not the same as working software
+icon: flask-conical
 ---
 
 ## The Problem
 
-AI-generated tests look correct and pass — because they mock the thing they are testing. Coverage metrics lie. Production defects escape through fully-mocked, 100%-green test suites.
+AI-generated tests look correct and pass - because they mock the thing they are testing. Coverage metrics lie. Production defects escape through fully-mocked, 100%-green test suites.
 
 ## What It Does
 
 Three-stage quality backstop:
 
-1. **Audit** — detects test smells: mocking the unit under test, asserting only on mock args, no real execution path
-2. **Generate** — produces test plans from acceptance criteria (real execution, no fake-green)
-3. **Validate** — runs symbol-level smoke tests pre-deploy
+1. **Audit** - detects test smells: mocking the unit under test, asserting only on mock args, no real execution path
+2. **Generate** - produces test plans from acceptance criteria (real execution, no fake-green)
+3. **Validate** - runs symbol-level smoke tests pre-deploy
 
 ## Try It
 
@@ -38,9 +39,9 @@ Set agent to tester. Run symbol-level smoke tests before deploy
 
 ## Expected Output
 
-- Test smell report — per-file violations with severity
-- AC-derived test plan — real execution paths, no mocked units
-- Smoke test results — pass/fail per critical symbol
+- Test smell report - per-file violations with severity
+- AC-derived test plan - real execution paths, no mocked units
+- Smoke test results - pass/fail per critical symbol
 
 ## Who This Is For
 
@@ -48,4 +49,4 @@ Set agent to tester. Run symbol-level smoke tests before deploy
 - Teams with green CI and recurring production bugs
 - Engineering managers introducing AI coding assistants and needing a quality backstop
 
-<Warning>TestArchitect rejects tests that mock the unit under test. A test that only asserts on mock.call_args is not a test — it is a false signal.</Warning>
+<Warning>TestArchitect rejects tests that mock the unit under test. A test that only asserts on mock.call_args is not a test - it is a false signal.</Warning>
