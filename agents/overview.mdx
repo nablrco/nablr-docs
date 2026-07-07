@@ -6,7 +6,7 @@ icon: users
 
 All persona prompts require a Pro plan or active trial. Free tier returns an upgrade prompt.
 
-## SDLC workflow agents
+## <Icon icon="workflow" /> SDLC workflow agents
 
 <Card title="SDLC workflow agents" icon="workflow">
   A structured handoff sequence - each agent validates the previous phase before proceeding.
@@ -26,7 +26,7 @@ All persona prompts require a Pro plan or active trial. Free tier returns an upg
 | `scrum_master` | Flow Optimization Engineer | Process orchestration, handoff tracking |
 | `security_owner` | AppSec Sentinel | Security audit, OWASP, vulnerability scanning |
 
-## Specialist agents
+## <Icon icon="sparkles" /> Specialist agents
 
 <Card title="Specialist agents" icon="sparkles">
   On-demand experts for incidents, migrations, and cross-system impact analysis.
@@ -42,7 +42,7 @@ All persona prompts require a Pro plan or active trial. Free tier returns an upg
 | `parity_tester` | Parity Validator | Legacy vs new system equivalence testing |
 | `cutover_engineer` | Cutover Specialist | Go-live sequencing and rollback planning |
 
-## Invoking an agent
+## <Icon icon="terminal" /> Invoking an agent
 
 In your AI assistant:
 
@@ -56,7 +56,7 @@ or
 Set my agent to architect and help me design the auth service
 ```
 
-## How rules are loaded
+## <Icon icon="cog" /> How rules are loaded
 
 When you invoke a paid agent, nablr fetches the relevant rule files from the license server and injects them into the prompt. Rules are cached locally in `~/.nablr_cache/assets/` after the first activation - subsequent calls are instant with zero network dependency.
 

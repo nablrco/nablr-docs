@@ -4,7 +4,7 @@ description: Free tier, Pro trial, and paid plans
 icon: layers
 ---
 
-## Plans
+## <Icon icon="layers" /> Plans
 
 | | Free | Pro |
 |--|------|-----|
@@ -17,7 +17,7 @@ icon: layers
 | Asset pre-cache (offline use) | - | ✅ |
 | Trial (14 days, full Pro) | ✅ | - |
 
-## Pro pricing
+## <Icon icon="credit-card" /> Pro pricing
 
 ### India (Razorpay)
 
@@ -41,7 +41,7 @@ icon: layers
 | Team (5 seats) - 6-month | $99/6mo |
 | Team (5 seats) - Annual | $159/yr |
 
-## Free trial
+## <Icon icon="sparkles" /> Free trial
 
 14-day full Pro access. One trial per device. No credit card required.
 
@@ -51,7 +51,7 @@ Start my nablr trial
 
 nablr generates a device ID and mints a trial key automatically.
 
-## Activate a paid key
+## <Icon icon="key" /> Activate a paid key
 
 After subscribing, you receive a key via email (`sk_nablr_...`).
 
@@ -61,15 +61,15 @@ Activate my key sk_nablr_<your-key-here>
 
 The key is validated against the license server and cached locally. Subsequent calls use the 4-hour in-memory cache - no network round-trip on every prompt.
 
-## Recover a lost key
+## <Icon icon="life-buoy" /> Recover a lost key
 
 Email `support@nablr.dev` or use the recovery endpoint - your key is re-sent to the email address used at signup.
 
-## Team plan
+## <Icon icon="users" /> Team plan
 
 Team plans share a single key across up to 5 devices. The 6th device is rejected with a `device_limit_reached` error. Contact `support@nablr.dev` to rotate a device slot.
 
-## Development / CI use
+## <Icon icon="terminal" /> Development / CI use
 
 Set `NABLR_DEV_MODE=1` to bypass all license checks. Returns paid status immediately with zero network calls. For CI pipelines and local dev only - not for end users.
 
@@ -77,7 +77,7 @@ Set `NABLR_DEV_MODE=1` to bypass all license checks. Returns paid status immedia
 export NABLR_DEV_MODE=1
 ```
 
-## Airgap environments
+## <Icon icon="wifi-off" /> Airgap environments
 
 After activating a key, all paid assets are pre-cached to `~/.nablr_cache/assets/`. Subsequent prompt generation makes zero network calls - fully functional in restricted network environments.
 

@@ -4,7 +4,7 @@ description: Network boundaries, data handling, and airgap support
 icon: shield-check
 ---
 
-## Network boundary
+## <Icon icon="shield-check" /> Network boundary
 
 nablr makes exactly one category of outbound network call: license validation to `nablr-api.nablrco.workers.dev`.
 
@@ -16,7 +16,7 @@ nablr makes exactly one category of outbound network call: license validation to
 
 **Your code is never sent anywhere.** All scanners, codebase mapping, and workflow tools run entirely locally via AST analysis.
 
-## Firewall allowlist
+## <Icon icon="flame" /> Firewall allowlist
 
 If your environment blocks outbound traffic, allowlist:
 
@@ -26,7 +26,7 @@ nablr-api.nablrco.workers.dev:443 (HTTPS)
 
 Only one domain, one port. All traffic is TLS 1.2+.
 
-## Airgap proof
+## <Icon icon="wifi-off" /> Airgap proof
 
 Run the included airgap verification script to confirm no unexpected outbound calls:
 
@@ -40,7 +40,7 @@ NABLR_API_KEY=sk_nablr_... uv run python scripts/airgap_proof.py --with-key
 
 The script installs a socket-level firewall and exercises the full prompt generation path. Any unexpected connection attempt raises an error and fails the test.
 
-## Offline / airgap operation
+## <Icon icon="hard-drive" /> Offline / airgap operation
 
 After activating a key, all paid assets are downloaded to `~/.nablr_cache/assets/`. Subsequent prompt generation requires zero network calls.
 
@@ -58,13 +58,13 @@ Cache layout:
 
 All cache files are `chmod 600` - readable only by the current user.
 
-## Key security
+## <Icon icon="key" /> Key security
 
 - Keys are sent only in the `Authorization: Bearer` header - never in request bodies or URLs
 - Keys are stored at `~/.nablr_cache/license_key.json` with `chmod 600`
 - The last 4 characters are logged when `NABLR_AUDIT_LOG=1` is set - full key is never logged
 
-## Audit logging
+## <Icon icon="file-text" /> Audit logging
 
 Enable structured JSON audit logs for all license requests:
 
@@ -74,7 +74,7 @@ export NABLR_AUDIT_LOG=1
 
 Logs include: timestamp, endpoint, HTTP status, key suffix (last 4 chars), response time. Sent to stderr.
 
-## Dependency audit
+## <Icon icon="package-search" /> Dependency audit
 
 ```bash
 uv run python -m nablr.security_scan

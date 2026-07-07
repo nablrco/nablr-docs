@@ -8,11 +8,11 @@ icon: flask-conical
   Green CI is not the same as working software.
 </Card>
 
-## The Problem
+## <Icon icon="alert-triangle" /> The Problem
 
 AI-generated tests look correct and pass - because they mock the thing they are testing. Coverage metrics lie. Production defects escape through fully-mocked, 100%-green test suites.
 
-## What It Does
+## <Icon icon="cog" /> What It Does
 
 Three-stage quality backstop:
 
@@ -20,7 +20,7 @@ Three-stage quality backstop:
 2. **Generate** - produces test plans from acceptance criteria (real execution, no fake-green)
 3. **Validate** - runs symbol-level smoke tests pre-deploy
 
-## Try It
+## <Icon icon="terminal" /> Try It
 
 Audit an existing test suite:
 
@@ -41,13 +41,13 @@ Pre-deploy smoke check:
 Set agent to tester. Run symbol-level smoke tests before deploy
 ```
 
-## Expected Output
+## <Icon icon="file-check" /> Expected Output
 
 - Test smell report - per-file violations with severity
 - AC-derived test plan - real execution paths, no mocked units
 - Smoke test results - pass/fail per critical symbol
 
-## Who This Is For
+## <Icon icon="users" /> Who This Is For
 
 - QA leads inheriting untested or mis-tested codebases
 - Teams with green CI and recurring production bugs

@@ -8,11 +8,11 @@ icon: network
   Know what breaks before you change it.
 </Card>
 
-## The Problem
+## <Icon icon="alert-triangle" /> The Problem
 
 In microservices and multi-repo environments, no one person holds the full picture. A schema change in one service silently breaks three others. Staff engineers spend weeks tracing cross-system dependencies by hand.
 
-## What It Does
+## <Icon icon="cog" /> What It Does
 
 Connects multiple repositories into a unified context graph:
 
@@ -20,7 +20,7 @@ Connects multiple repositories into a unified context graph:
 - Answers: "what else breaks if I change this interface?"
 - Surfaces hidden coupling before it becomes a production incident
 
-## Try It
+## <Icon icon="terminal" /> Try It
 
 ```
 activate nablr
@@ -40,13 +40,13 @@ Set agent to discovery. Scan this codebase and generate the context graph
 Set agent to impact_architect. Show all consumers of the UserService.get_by_id method
 ```
 
-## Expected Output
+## <Icon icon="file-check" /> Expected Output
 
 - Context graph - unified dependency map across services
 - Change impact report - downstream consumers affected
 - `nablr-reports/context_graph.json` - machine-readable graph for CI integration
 
-## Who This Is For
+## <Icon icon="users" /> Who This Is For
 
 - Platform teams at organizations with microservices sprawl
 - Staff engineers executing system-wide changes
