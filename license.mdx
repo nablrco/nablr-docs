@@ -59,7 +59,7 @@ After subscribing, you receive a key via email (`sk_nablr_...`).
 Activate my key sk_nablr_<your-key-here>
 ```
 
-The key is validated against the license server and cached locally. Subsequent calls use the 4-hour in-memory cache - no network round-trip on every prompt.
+The key is validated against the license server and cached locally. Subsequent calls use the in-memory cache - no network round-trip on every prompt.
 
 ## <Icon icon="life-buoy" /> Recover a lost key
 
@@ -69,16 +69,8 @@ Email `support@nablr.dev` or use the recovery endpoint - your key is re-sent to 
 
 Team plans share a single key across up to 5 devices. The 6th device is rejected with a `device_limit_reached` error. Contact `support@nablr.dev` to rotate a device slot.
 
-## <Icon icon="terminal" /> Development / CI use
-
-Set `NABLR_DEV_MODE=1` to bypass all license checks. Returns paid status immediately with zero network calls. For CI pipelines and local dev only - not for end users.
-
-```bash
-export NABLR_DEV_MODE=1
-```
-
 ## <Icon icon="wifi-off" /> Airgap environments
 
-After activating a key, all paid assets are pre-cached to `~/.nablr_cache/assets/`. Subsequent prompt generation makes zero network calls - fully functional in restricted network environments.
+After activating a key, paid assets are pre-cached locally. Subsequent prompt generation makes zero network calls - fully functional in restricted network environments.
 
 See the [Security](/security) page for firewall allowlist details.

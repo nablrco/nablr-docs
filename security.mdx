@@ -10,7 +10,7 @@ nablr makes exactly one category of outbound network call: license validation to
 
 | Request | When | What's sent |
 |---------|------|------------|
-| `POST /validate` | First prompt after 4-hour cache TTL | `device_id` (UUID), `Authorization: Bearer <key>` |
+| `POST /validate` | First prompt after cache expiry | `device_id` (UUID), `Authorization: Bearer <key>` |
 | `GET /assets/manifest` | On key activation | `Authorization: Bearer <key>` |
 | `GET /{type}/{path}` | Asset pre-cache (activation only) | `Authorization: Bearer <key>` |
 
@@ -42,26 +42,14 @@ The script installs a socket-level firewall and exercises the full prompt genera
 
 ## <Icon icon="hard-drive" /> Offline / airgap operation
 
-After activating a key, all paid assets are downloaded to `~/.nablr_cache/assets/`. Subsequent prompt generation requires zero network calls.
-
-Cache layout:
-```
-~/.nablr_cache/
-  license.json          ← validation result (4hr TTL)
-  license_key.json      ← your key (chmod 600)
-  assets/
-    manifest.json       ← asset versions + etags
-    rule/               ← rule files
-    prompt/             ← persona prompt bodies
-    config/             ← language + framework configs
-```
+After activating a key, paid assets are cached locally in a restricted-permission directory. Subsequent prompt generation requires zero network calls.
 
 All cache files are `chmod 600` - readable only by the current user.
 
 ## <Icon icon="key" /> Key security
 
 - Keys are sent only in the `Authorization: Bearer` header - never in request bodies or URLs
-- Keys are stored at `~/.nablr_cache/license_key.json` with `chmod 600`
+- Keys are cached locally with `chmod 600` (owner-only read/write)
 - The last 4 characters are logged when `NABLR_AUDIT_LOG=1` is set - full key is never logged
 
 ## <Icon icon="file-text" /> Audit logging
