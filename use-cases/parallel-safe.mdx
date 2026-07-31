@@ -1,0 +1,59 @@
+---
+title: Airlock
+description: Run concurrent sessions without stepping on each other
+icon: boxes
+---
+
+<Card title="Airlock" icon="boxes">
+  Run concurrent sessions without stepping on each other.
+</Card>
+
+## <Icon icon="triangle-alert" /> The Problem
+
+Multiple teammates - or multiple agent sessions - working the same repo at once used to share everything: the same checkout, the same branch, the same state files. Two sessions running in parallel could silently overwrite each other's active-story state, or get blocked by a gate that was actually counting another session's commits. No crash, no error - just wrong answers and false-positive blocks.
+
+## <Icon icon="cog" /> What It Does
+
+Isolates every concurrent session in its own git worktree, then merges finished work back into `dev` automatically:
+
+- Each session gets a dedicated worktree on a story-scoped branch, with its own state - no shared active-story pointer, no cross-session interference
+- Commit-atomicity gates only count that session's own commits since it branched from `dev` - never commits landed by other concurrent sessions
+- Finished stories merge back as a single squash commit on `dev`, gated on the story's own closure checks passing
+- Worktree and branch are cleaned up automatically on a clean merge
+- Optional PR mode pushes the branch and opens a PR instead of merging locally, for teams that want human review at this step too
+
+## <Icon icon="terminal" /> Try It
+
+```
+activate nablr
+Start story STORY-123
+```
+
+nablr creates (or attaches to) a dedicated worktree for the story the first time you initialize it - no extra setup. Run as many stories in parallel, in as many sessions, as you need.
+
+When the story is done and its closure checks pass:
+
+```
+Merge story STORY-123 back to dev
+```
+
+For a PR instead of a local merge:
+
+```
+Merge story STORY-123 back to dev via PR
+```
+
+## <Icon icon="file-check" /> Expected Output
+
+- A dedicated worktree per active story, isolated from other concurrent sessions
+- A single squash commit on `dev` per merged story, regardless of how many WIP commits it took to get there
+- Automatic worktree and branch cleanup after a clean merge
+- Conflicting-file list and a clean abort (never a stuck mid-conflict checkout) if the merge can't proceed
+
+## <Icon icon="users" /> Who This Is For
+
+- Teams running multiple engineers or multiple agent sessions against the same repo at once
+- Engineering leads who've hit silent state collisions or false-positive gate blocks under concurrent AI-assisted development
+- Teams wanting PR-gated review even for agent-driven merges
+
+<Note>Recommended ceiling is 3-5 concurrent sessions per repo. Past that, nablr logs a soft warning but does not block - very high concurrency increases the odds of two sessions racing to clean up the same worktree at once.</Note>
