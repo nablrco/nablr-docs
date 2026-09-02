@@ -1,67 +1,248 @@
 ---
 title: Tools
-description: 40+ local scanners and workflow tools - all free, no key required
+description: 36 MCP tools - quality scanners, SDLC workflow orchestration, and codebase mapping
 icon: wrench
 ---
 
-All tools below run entirely locally. No network calls, no key required.
+nablr exposes 36 MCP tools. Most run entirely locally (no network call, no key
+required); a few dispatchers group related behavior behind an `action`,
+`target`, or `event` parameter instead of one tool per verb. Every tool name
+and action value on this page is read directly from the server's tool
+registry — see [Usage](#usage) for how that's kept honest.
 
-## <Icon icon="scan-search" /> Quality scanners
+## <Icon icon="scan-search" /> Quality scanners — `scan`
 
-<Card title="Quality scanners" icon="scan-search">
-  10 local scanners for tech debt, security, complexity, and AI-pattern detection.
+<Card title="scan(target, directory, ...)" icon="scan-search">
+  One dispatcher tool, 12 targets. `health` is the primary entry point — runs
+  every scanner and can trigger remediation.
 </Card>
 
-| Tool | What it does |
-|------|-------------|
-| `scan_health` | Unified health report across all quality dimensions |
-| `scan_debt` | Detect TODOs, bare exceptions, missing types, long functions |
-| `scan_code_quality` | AST-based rule enforcement (bare except, type hints, logging) |
-| `detect_ai_patterns` | Find AI-generated code smells and test anti-patterns |
-| `validate_compliance` | Check code against nablr quality standards |
-| `scan_external_dependencies` | Find env vars, API clients, external URLs |
-| `scan_docs` | Detect missing or stale documentation |
-| `scan_dead_code` | Find unused functions, classes, and imports |
-| `scan_complexity` | Cyclomatic + cognitive complexity per function |
-| `scan_security` | Hardcoded secrets, injection risks, insecure patterns |
+| `target` | What it does | Example |
+|---|---|---|
+| `health` | Unified health report across all quality dimensions; primary entry point | `scan(target="health", directory=".")` |
+| `debt` | TODOs, bare exceptions, missing types, long functions | `scan(target="debt", directory="src/")` |
+| `dead_code` | Unused functions, classes, imports | `scan(target="dead_code", directory="src/")` |
+| `complexity` | Cyclomatic + cognitive complexity per function | `scan(target="complexity", files="src/app.py")` |
+| `external` | Env vars, API clients, external URLs | `scan(target="external", directory=".")` |
+| `regression` | Regression risk on changed files | `scan(target="regression", files="src/app.py")` |
+| `docs` | Missing or stale documentation | `scan(target="docs", directory="src/")` |
+| `ai_patterns` | AI-generated code smells, test anti-patterns | `scan(target="ai_patterns", file_path="src/app.py")` |
+| `security` | Hardcoded secrets, injection risks, insecure patterns | `scan(target="security", directory=".")` |
+| `codemap_freshness` | Stale `CODE_MAP.md` vs. current file tree | `scan(target="codemap_freshness", directory=".")` |
+| `migration_readiness` | Assess a module's readiness for a planned migration | `scan(target="migration_readiness", directory="src/")` |
+| `full_suite` | Bounded run of the Mandatory Tooling gate (ruff/pyright/lint/tsc/build) | `scan(target="full_suite", directory=".")` |
 
-## <Icon icon="map" /> Codebase mapping
+Pass `mode="migration"` with `target="health"` to activate migration-intent
+detection. Pass `diff_scope=true`/`false` to force diff-only or whole-repo
+scope on `health`/`security`/`full_suite` (auto-resolved from story context
+when omitted).
 
-<Card title="Codebase mapping" icon="map">
-  Auto-document structure, dependencies, and staleness across the repo.
+## <Icon icon="wand-sparkles" /> Remediation — `remediate`
+
+<Card title="remediate(action, ...)" icon="wand-sparkles">
+  Turns a `scan` report into an autonomous or approved fix plan.
 </Card>
 
-| Tool | What it does |
-|------|-------------|
-| `generate_codemap` | Auto-document directory structure to `CODE_MAP.md` |
-| `check_codemap_freshness` | Detect stale CODE_MAP vs current file tree |
-| `generate_dependency_graph` | Visualize module dependencies |
+| `action` | What it does | Example |
+|---|---|---|
+| `start` | Parse scan output, classify violations into tiers, return a plan | `remediate(action="start", scan_output="<scan JSON>")` |
+| `state` | Show current remediation session progress | `remediate(action="state", session_id="...")` |
+| `execute` | Return the ordered work plan for a tier | `remediate(action="execute", tier="tier1")` |
+| `approve` | Approve a Tier 2 batch (requires human sign-off) | `remediate(action="approve", session_id="...")` |
+| `defer` | Defer one violation to `TECH_DEBT.md` instead of fixing | `remediate(action="defer", violation_id="...", reason="...")` |
+| `update` | Mark violations `auto_fixed`/`failed` after fixes land | `remediate(action="update", violation_ids=["..."], status="auto_fixed")` |
+| `complete` | Close the session after PR Reviewer gate passes | `remediate(action="complete", session_id="...")` |
 
-## <Icon icon="workflow" /> Workflow orchestration
+## <Icon icon="workflow" /> Workflow orchestration — `workflow`
 
-<Card title="Workflow orchestration" icon="workflow">
-  Track a story through the SDLC and catch broken handoffs early.
+<Card title="workflow(action, story_id, ...)" icon="workflow">
+  The SDLC state machine: init a story, advance phases, run parallel gates, merge back.
 </Card>
 
-| Tool | What it does |
-|------|-------------|
-| `init_workflow` | Start tracking a story through the SDLC |
-| `get_workflow_state` | Current phase, blockers, pending artifacts |
-| `suggest_next_agent` | Auto-suggest agent transitions based on state |
-| `generate_story_dependency_graph` | Visualize story dependencies |
-| `detect_flow_gaps` | Find broken end-to-end flows |
+| `action` | What it does | Example |
+|---|---|---|
+| `init` | Start tracking a story through the SDLC | `workflow(action="init", story_id="STORY-001", epic_id="EPIC-001")` |
+| `list` | List all tracked stories | `workflow(action="list")` |
+| `state` | Current phase, blockers, pending artifacts | `workflow(action="state", story_id="STORY-001")` |
+| `next` | Auto-suggest the next agent based on state | `workflow(action="next", story_id="STORY-001")` |
+| `parallel_start` | Open a parallel-track phase (e.g. QA Gate, Verification) | `workflow(action="parallel_start", story_id="STORY-001")` |
+| `parallel_complete` | Signal one parallel-track agent's completion | `workflow(action="parallel_complete", story_id="STORY-001", agent="tester", status="passed")` |
+| `fix_flow` | Start a fix-flow session, activates `forensic_engineer` | `workflow(action="fix_flow", file_path="src/app.py", error_description="500 on login")` |
+| `complete_fix_flow` | Close a fix-flow session, activates `scrum_master` | `workflow(action="complete_fix_flow", story_id="FIX-...")` |
+| `complete` | Close out a finished story's workflow | `workflow(action="complete", story_id="STORY-001")` |
+| `validate_story_file` | Confirm a story markdown/JSON pair exists and parses | `workflow(action="validate_story_file", story_id="STORY-001")` |
+| `validate_and_advance` | Validate the current phase's artifact and advance | `workflow(action="validate_and_advance", story_id="STORY-001", next_phase="developer")` |
+| `merge_back` | Merge a story's isolated worktree branch back and clean up | `workflow(action="merge_back", story_id="STORY-001")` |
+| `repair` | Repair a corrupted/inconsistent workflow state record | `workflow(action="repair", story_id="STORY-001")` |
+| `revert_phase` | Revert to the adjacent predecessor phase | `workflow(action="revert_phase", story_id="STORY-001", phase="developer")` |
+
+`override=true` on `validate_and_advance` forces a non-adjacent phase jump
+(logs an L2 escalation; never bypasses artifact/blocker checks).
+
+## <Icon icon="clipboard-check" /> Validation — `validate`
+
+<Card title="validate(role, artifact_id, artifact_path)" icon="clipboard-check">
+  Runs one role's structural validator against its artifact and returns a JSON ValidationReport.
+</Card>
+
+| Tool | What it does | Example |
+|---|---|---|
+| `validate` | Validate a role's output artifact (`product_manager`, `architect`, `qa_lead`, `impact_architect`, and every other persona) | `validate(role="product_manager", artifact_id="STORY-001")` |
+
+## <Icon icon="user-check" /> Agent control — `agent`
+
+<Card title="agent(action, name, ...)" icon="user-check">
+  List, activate, identify, or gate-check a persona.
+</Card>
+
+| `action` | What it does | Example |
+|---|---|---|
+| `list` | List all available agent personas, numbered | `agent(action="list")` |
+| `activate` | Activate an agent by name or number (this is the replacement for the old `set_active_agent`) | `agent(action="activate", name="developer")` |
+| `identify` | Suggest which agent best fits a free-text task description | `agent(action="identify", context="fix a 500 error on login")` |
+| `check` | Check whether an agent's activation prerequisites are met, without activating it | `agent(action="check", name="architect")` |
+
+`force=true` on `activate` bypasses the artifact-prerequisites gate (logs an
+escalation). `story_id` on `activate`/`check` gates against a specific story
+instead of the session's active-story pointer.
+
+## <Icon icon="diagram-project" /> Session context & knowledge graph — `context`
+
+<Card title="context(action, ...)" icon="diagram-project">
+  Session-scoped notes plus a queryable knowledge graph of the codebase and story history.
+</Card>
+
+| `action` | What it does | Example |
+|---|---|---|
+| `add` | Add a session context entry | `context(action="add", layer="story", entry_type="decision", content="...", identifier="STORY-001")` |
+| `get` | Read session context entries | `context(action="get", story_id="STORY-001")` |
+| `clear` | Clear session context | `context(action="clear", story_id="STORY-001")` |
+| `graph_add` | Add a node to the knowledge graph | `context(action="graph_add", node_type="decision", content="...", story_id="STORY-001")` |
+| `graph_related` | Get nodes related to a given node | `context(action="graph_related", node_id="src/app.py")` |
+| `graph_chain` | Get the causality chain for a story | `context(action="graph_chain", story_id="STORY-001")` |
+| `graph_data` | Export raw graph data | `context(action="graph_data", format="json")` |
+| `graph_populate` | Populate the graph from the codebase (AST + git + optional LLM) | `context(action="graph_populate", directory=".", levels="L1,L2")` |
+| `graph_query` | Full-text query over the graph | `context(action="graph_query", term="auth")` |
+| `graph_subgraph` | Extract a subgraph around a node | `context(action="graph_subgraph", node_id="src/app.py", depth=2)` |
+| `graph_html` | Render an interactive HTML graph viewer to `nablr-reports/graph.html` | `context(action="graph_html", directory=".")` |
+| `graph_watch` | Start a file watcher that incrementally updates the graph | `context(action="graph_watch", directory=".")` |
+| `graph_watch_stop` | Stop a running graph file watcher | `context(action="graph_watch_stop", directory=".")` |
+
+`manage_context(action, ...)` is a lighter standalone tool exposing only the
+`add`/`get`/`clear` behavior above, for callers that don't need the graph.
+
+## <Icon icon="lightbulb" /> Pattern memory — `pattern`
+
+<Card title="pattern(action, ...)" icon="lightbulb">
+  Capture and reuse team conventions discovered while working a story.
+</Card>
+
+| `action` | What it does | Example |
+|---|---|---|
+| `capture` | Record a reusable code/architecture pattern | `pattern(action="capture", name="repo-pattern", snippet="...", tech="python")` |
+| `suggest` | Suggest existing patterns relevant to a task | `pattern(action="suggest", domain="auth")` |
+| `get` | Fetch one pattern by id | `pattern(action="get", pattern_id="...")` |
+| `list` | List captured patterns | `pattern(action="list")` |
+
+## <Icon icon="route" /> Story sequencing — `story`
+
+<Card title="story(action, directory)" icon="route">
+  Cross-story dependency analysis, independent of any single story's workflow state.
+</Card>
+
+| `action` | What it does | Example |
+|---|---|---|
+| `dependencies` | Show the full story dependency graph | `story(action="dependencies", directory=".")` |
+| `ready` | List stories with all dependencies satisfied | `story(action="ready", directory=".")` |
+| `critical_path` | Compute the longest dependency chain | `story(action="critical_path", directory=".")` |
+| `analysis` | Summarize sequencing risk across all stories | `story(action="analysis", directory=".")` |
+
+## <Icon icon="chrome" /> Browser / E2E testing — `browser`
+
+<Card title="browser(action, ...)" icon="chrome">
+  nablr cannot drive a browser itself — it hands out one conceptual test
+  step at a time; the calling agent runs it via its own Playwright MCP tools
+  and reports the real outcome back.
+</Card>
+
+| `action` | What it does | Example |
+|---|---|---|
+| `check` | Detect whether a real Playwright MCP is available this session | `browser(action="check")` |
+| `write_tests` | Register conceptual E2E test cases for a story | `browser(action="write_tests", story_id="STORY-001", test_cases_json="[...]")` |
+| `execute` | Get the next conceptual test step to run | `browser(action="execute", story_id="STORY-001", test_id="TC-001")` |
+| `report_step` | Report a step's real outcome back | `browser(action="report_step", story_id="STORY-001", success=true, duration_ms=420)` |
+| `verify` | Verify all registered test cases completed | `browser(action="verify", story_id="STORY-001")` |
+
+| Tool | What it does | Example |
+|---|---|---|
+| `check_testing_capabilities` | Detect available testing tools (Playwright MCP, pytest) for a story | `check_testing_capabilities(story_id="STORY-001")` |
+| `defer_e2e_testing` | Formally defer E2E testing to `TECH_DEBT.md` (requires `confirmed=true` after user approval) | `defer_e2e_testing(story_id="STORY-001", reason="no UI surface", confirmed=true)` |
+
+## <Icon icon="sitemap" /> Requirements hierarchy — `create_story` / `create_epic` / `create_feature`
+
+<Card title="create_story / create_epic / create_feature" icon="sitemap">
+  Write requirement docs the sanctioned way — never with a raw file write.
+</Card>
+
+| Tool | What it does | Example |
+|---|---|---|
+| `create_story` | Create `docs/requirements/STORY-XXX.md` + `.json` | `create_story(story_id="STORY-001", title="...", user_story="As a...")` |
+| `create_epic` | Create `docs/requirements/EPIC-XXX.md` + `.json` | `create_epic(epic_id="EPIC-001", title="...")` |
+| `create_feature` | Create `docs/requirements/FEAT-XXX.md` + `.json` | `create_feature(feature_id="FEAT-001", epic_id="EPIC-001", title="...")` |
+
+## <Icon icon="map" /> Codebase mapping & discovery
+
+<Card title="Discovery artifacts" icon="map">
+  Auto-document structure, features, agents, and requirements status.
+</Card>
+
+| Tool | What it does | Example |
+|---|---|---|
+| `generate_codemap` | Auto-document directory structure to `codemap/CODE_MAP.md` | `generate_codemap(directory=".")` |
+| `generate_features` | Infer `FEATURES.md` from an existing `codemap/` | `generate_features(directory=".")` |
+| `generate_agents_md` | Generate `AGENTS.md` with the nablr protocol and fix workflow | `generate_agents_md(directory=".")` |
+| `generate_requirements_index` | Generate `docs/requirements/INDEX.md` epic/status rollup | `generate_requirements_index(directory=".")` |
+| `audit_discovery` | Audit discovery artifacts for completeness/placement | `audit_discovery(directory=".")` |
+| `generate_flow` | Generate a flow diagram or summary from requirements | `generate_flow(directory=".", output="diagram")` |
+| `detect_flow_gaps` | Find broken end-to-end flows | `detect_flow_gaps(flows_file="docs/FLOW_DIAGRAM.md", req_directory="docs/requirements")` |
+| `validate_external_dependencies` | Check code only calls APIs registered in `EXTERNAL_DEPS.md` | `validate_external_dependencies(registry_file="docs/EXTERNAL_DEPS.md", code_directory="src/")` |
+| `list_unregistered_dependencies` | List external API calls missing from `EXTERNAL_DEPS.md` | `list_unregistered_dependencies(code_directory="src/")` |
+
+## <Icon icon="chart-line" /> Reporting
+
+| Tool | What it does | Example |
+|---|---|---|
+| `generate_project_summary` | Generate `executive-summary.json` (score, debt, security, compliance) | `generate_project_summary(directory=".")` |
+| `generate_efficiency_report` | Write FPY, rework ratio, and cost trend to `nablr-reports/efficiency/` | `generate_efficiency_report(directory=".")` |
+| `log` | Audit-log a state change: `escalation`, `ownership`, `replan`, `debt`, `phase`, `artifact`, `resolution` | `log(event="phase", story_id="STORY-001", phase="developer", outcome="passed", next_phase="pr_reviewer")` |
+
+## <Icon icon="shield-check" /> Quality gate & blockers
+
+| Tool | What it does | Example |
+|---|---|---|
+| `run_quality_gate` | Run one Mandatory Tooling command (`ruff_check`\|`pyright`\|`js_lint`\|`tsc`\|`vite_build`) with a bounded timeout | `run_quality_gate(tool="pyright", directory=".")` |
+| `add_blocker` | Add an `L1`/`L2`/`L3` blocker to a story | `add_blocker(story_id="STORY-001", level="L2", description="...", source_agent="developer")` |
+| `resolve_blocker` | Resolve a blocker by index (-1 = most recent) | `resolve_blocker(story_id="STORY-001")` |
+| `notify_background_agent` | Queue a notification for the primary agent from a background agent | `notify_background_agent(story_id="STORY-001", notification="...")` |
+| `request_debt_fix_approval` | Request approval to fix tech debt (logs an L3 escalation, halts for a decision) | `request_debt_fix_approval(debt_id="...", description="...")` |
+
+## <Icon icon="cog" /> Session & story context
+
+| Tool | What it does | Example |
+|---|---|---|
+| `set_story_context` | Set the active story for agent prompts and workflow tracking | `set_story_context(story_id="STORY-001", epic_id="EPIC-001")` |
+| `set_project_root` | Set a session-default project root (deprecated for story-scoped calls) | `set_project_root("/path/to/project")` |
 
 ## <Icon icon="key" /> License tools
 
 <Card title="License tools" icon="key">
-  Trial activation, key management, and plan status.
+  Trial activation, key management — always free, never gated.
 </Card>
 
-| Tool | What it does |
-|------|-------------|
-| `start_trial` | Mint a 14-day Pro trial key (no credit card) |
-| `activate_key` | Activate a paid Pro key |
-| `check_license` | Show current plan and key status |
+| Tool | What it does | Example |
+|---|---|---|
+| `start_trial` | Mint a 14-day Pro trial key (no credit card) | `start_trial()` |
+| `set_license_key` | Activate a paid Pro key (`sk_nablr_...`) | `set_license_key(key="sk_nablr_...")` |
 
 ## <Icon icon="terminal" /> Usage
 
@@ -78,3 +259,8 @@ Generate a codemap for src/
 ```
 What's the current workflow state for STORY-042?
 ```
+
+Every tool name and action value on this page is checked in CI against the
+live MCP tool registry (`nablr.server.mcp.list_tools()`) — if a tool is
+renamed or an action added or removed, the check fails until this page is
+updated to match.
