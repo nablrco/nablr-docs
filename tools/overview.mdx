@@ -75,6 +75,7 @@ when omitted).
 | `merge_back` | Merge a story's isolated worktree branch back and clean up | `workflow(action="merge_back", story_id="STORY-001")` |
 | `repair` | Repair a corrupted/inconsistent workflow state record | `workflow(action="repair", story_id="STORY-001")` |
 | `revert_phase` | Revert to the adjacent predecessor phase | `workflow(action="revert_phase", story_id="STORY-001", phase="developer")` |
+| `pr_review_flow` | Standalone, read-only, diff-scoped review of any PR by number — no story lineage required | `workflow(action="pr_review_flow", pr_owner="acme", pr_repo="app", pr_number=42)` |
 
 `override=true` on `validate_and_advance` forces a non-adjacent phase jump
 (logs an L2 escalation; never bypasses artifact/blocker checks).
