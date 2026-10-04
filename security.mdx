@@ -31,7 +31,7 @@ Only one domain, one port. All traffic is TLS 1.2+.
 Run the included airgap verification script to confirm no unexpected outbound calls:
 
 ```bash
-# Verify no network calls in free tier
+# Verify no network calls without a key
 uv run python scripts/airgap_proof.py
 
 # Verify only the allowlisted domain is called with a key

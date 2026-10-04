@@ -72,27 +72,11 @@ Restart your AI assistant after saving the config.
 
 ## <Icon icon="circle-check" /> Verify the connection
 
-In your AI assistant, type:
+## <Icon icon="sparkles" /> Get a key
 
-```
-activate nablr
-```
+nablr needs a licence key. There is no free tier. Buy a plan or the paid 10-day trial at [nablr.dev](https://nablr.dev). Your key arrives by email.
 
-You should see a list of agents with descriptions, a free-tier capabilities note, and a trial CTA. No key required - `activate nablr` is the free-tier entry point and runs with no license.
-
-## <Icon icon="sparkles" /> Start a free trial
-
-14-day full Pro access. No signup. No credit card. No browser required.
-
-Tell your AI assistant:
-
-```
-Start my nablr trial
-```
-
-nablr generates a device ID, calls the license server, and caches the trial key locally. Pro access activates immediately - no restart needed.
-
-<Note>One trial per device. If you see "trial already used for this device", your 14-day window has expired. Subscribe at [nablr.dev](https://nablr.dev) to continue.</Note>
+<Note>Trial keys from an earlier release no longer work. Get a new key at [nablr.dev](https://nablr.dev).</Note>
 
 ## <Icon icon="key" /> Activate a paid key
 
@@ -101,7 +85,7 @@ After subscribing at [nablr.dev](https://nablr.dev), you receive a key by email 
 **Option 1 - via your AI assistant (recommended):**
 
 ```
-Activate my key sk_nablr_<your-key-here>
+Call set_license_key with sk_nablr_<your-key-here>
 ```
 
 **Option 2 - via environment variable (CI / team deployments):**
@@ -158,19 +142,29 @@ Add `env` to your MCP config:
 
 `NABLR_API_KEY` always takes precedence over any locally stored key.
 
+## <Icon icon="rocket" /> Start nablr
+
+With a key active, type this in your AI assistant:
+
+```
+activate nablr
+```
+
+You should see a list of agents with descriptions. Without a key, every call returns the purchase link instead.
+
 {/* STORY-DOCS-CLAIMS-001 FR-3: persona and scanner counts below corrected
 to match AVAILABLE_AGENTS/ScanTargetAction's real sizes. */}
 
-## <Icon icon="layers" /> What you get per tier
+## <Icon icon="layers" /> What a licence unlocks
 
-| Feature | Free | Trial / Pro |
-|---------|------|-------------|
-| 12 built-in scanners | ✅ | ✅ |
-| Workflow tools | ✅ | ✅ |
-| Codebase mapping (CODE_MAP) | ✅ | ✅ |
-| SDLC persona prompts | 2 (`discovery`, `platform_engineer`) | 18 (all) |
-| Rule files & language/framework configs | Ships in every install, read from disk | Ships in every install, plus server-fetched freshness |
-| Offline asset cache | - | ✅ |
+| Feature | With a licence |
+|---------|----------------|
+| 12 built-in scanners | ✅ |
+| Workflow tools | ✅ |
+| Codebase mapping (CODE_MAP) | ✅ |
+| SDLC persona prompts | 18 (all) |
+| Rule files & language/framework configs | Ships in every install, plus server-fetched freshness |
+| Offline asset cache | ✅ |
 
 ## <Icon icon="compass" /> Try a use case
 

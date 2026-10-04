@@ -1,23 +1,24 @@
 ---
 title: License & Plans
-description: Free tier, Pro trial, and paid plans
+description: Paid plans and the paid 10-day trial
 icon: layers
 ---
 
 {/* STORY-DOCS-CLAIMS-001 FR-3: persona and scanner counts below corrected
 to match AVAILABLE_AGENTS/ScanTargetAction's real sizes. */}
 
-## <Icon icon="layers" /> Plans
+## <Icon icon="layers" /> What a licence unlocks
 
-| | Free | Pro |
-|--|------|-----|
-| Built-in scanners (12) | ✅ | ✅ |
-| Workflow tools | ✅ | ✅ |
-| Codebase mapping | ✅ | ✅ |
-| Persona prompts | 2 (`discovery`, `platform_engineer`) | 18 (all) |
-| Rule files + language/framework configs | Ships in every install, read from disk | Ships in every install, plus server-fetched freshness |
-| Asset pre-cache (offline use) | - | ✅ |
-| Trial (14 days, full Pro) | ✅ | - |
+nablr needs a licence key. There is no free tier.
+
+| | Pro |
+|--|-----|
+| Built-in scanners (12) | ✅ |
+| Workflow tools | ✅ |
+| Codebase mapping | ✅ |
+| Persona prompts | 18 (all) |
+| Rule files + language/framework configs | Ships in every install, plus server-fetched freshness |
+| Asset pre-cache (offline use) | ✅ |
 
 ## <Icon icon="credit-card" /> Pro pricing
 
@@ -43,22 +44,16 @@ to match AVAILABLE_AGENTS/ScanTargetAction's real sizes. */}
 | Team (5 seats) - 6-month | $99/6mo |
 | Team (5 seats) - Annual | $159/yr |
 
-## <Icon icon="sparkles" /> Free trial
+## <Icon icon="sparkles" /> Get a key
 
-14-day full Pro access. One trial per device. No credit card required.
-
-```
-Start my nablr trial
-```
-
-nablr generates a device ID and mints a trial key automatically.
+Buy a plan or the paid 10-day trial at [nablr.dev](https://nablr.dev). Your key arrives by email.
 
 ## <Icon icon="key" /> Activate a paid key
 
-After subscribing, you receive a key via email (`sk_nablr_...`).
+After buying, you receive a key by email (`sk_nablr_...`).
 
 ```
-Activate my key sk_nablr_<your-key-here>
+Call set_license_key with sk_nablr_<your-key-here>
 ```
 
 The key is validated against the license server and cached locally. Subsequent calls use the in-memory cache - no network round-trip on every prompt.
